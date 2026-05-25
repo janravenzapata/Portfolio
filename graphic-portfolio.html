@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jan Raven D. Zapata – Graphic Portfolio</title>
+  <meta name="description" content="Graphic design portfolio and work samples of Jan Raven D. Zapata - IT professional and digital designer."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    (function() {
+      const themeKey = 'jrz-theme';
+      const savedTheme = localStorage.getItem(themeKey);
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+    })();
+  </script>
+  <style>
+    body { font-family: 'Geist', ui-sans-serif, system-ui; -webkit-font-smoothing: antialiased; }
+    .fade-in { animation: fadeIn 0.6s ease-out both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .stagger > * { animation: fadeIn 0.6s ease-out both; }
+    .stagger > *:nth-child(1) { animation-delay: 0s; }
+    .stagger > *:nth-child(2) { animation-delay: 0.1s; }
+    .stagger > *:nth-child(3) { animation-delay: 0.2s; }
+    .stagger > *:nth-child(4) { animation-delay: 0.3s; }
+    .stagger > *:nth-child(5) { animation-delay: 0.4s; }
+    .stagger > *:nth-child(6) { animation-delay: 0.5s; }
+    .stagger > *:nth-child(n+7) { animation-delay: 0.6s; }
+    .hover-lift { transition: all 0.3s; }
+    .hover-lift:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
+
+    /* Lightbox & Gallery */
+    #lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 1rem; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+    #lightbox-caption { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.875rem; text-align: center; background: rgba(0,0,0,0.6); padding: 0.5rem 1rem; border-radius: 6px; white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis; }
+    #lightbox-close { position: absolute; top: 1rem; right: 1rem; color: white; font-size: 1.5rem; cursor: pointer; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    #lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    .design-thumb { cursor: zoom-in; transition: transform 0.3s, box-shadow 0.3s; }
+    .design-thumb:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* Category filter active state */
+    .filter-btn.active { background-color: #111827; color: white; border-color: #111827; }
+    .dark .filter-btn.active { background-color: white; color: #111827; border-color: white; }
+
+    /* Grid item hide/show */
+    .portfolio-item.hidden { display: none; }
+  </style>
+</head>
+<body class="antialiased bg-gray-50 text-gray-900 dark:bg-black dark:text-white min-h-screen flex flex-col">
+
+<div class="flex-grow w-full">
+
+  <header class="bg-white dark:bg-[#111111] border-b border-gray-200 dark:border-[#2a2a2a] sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-gray-900 dark:text-white transition text-sm sm:text-base font-medium group">
+        <i class="fas fa-arrow-left text-sm transition-transform group-hover:-translate-x-1"></i>
+        Back to Home
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-5xl mx-auto w-full px-3 sm:px-4 py-6 sm:py-8">
+
+    <section class="mb-8 sm:mb-10 fade-in">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">Graphic Portfolio</h1>
+      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Design samples and visual work — UI/UX, logo design, graphic materials, and others.</p>
+    </section>
+
+    <div class="flex flex-wrap gap-2 mb-6 sm:mb-8 fade-in" id="filter-bar">
+      <button onclick="filterItems('all')" class="filter-btn active text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#333] bg-gray-50 dark:bg-[#1e1e1e] text-gray-700 dark:text-gray-300 transition-all duration-200" data-filter="all">All</button>
+      <button onclick="filterItems('ux')" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#333] bg-gray-50 dark:bg-[#1e1e1e] text-gray-700 dark:text-gray-300 transition-all duration-200" data-filter="ux">UI/UX Design</button>
+      <button onclick="filterItems('logo')" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#333] bg-gray-50 dark:bg-[#1e1e1e] text-gray-700 dark:text-gray-300 transition-all duration-200" data-filter="logo">Logo Design</button>
+      <button onclick="filterItems('graphic')" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#333] bg-gray-50 dark:bg-[#1e1e1e] text-gray-700 dark:text-gray-300 transition-all duration-200" data-filter="graphic">Graphic Design</button>
+      <button onclick="filterItems('others')" class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#333] bg-gray-50 dark:bg-[#1e1e1e] text-gray-700 dark:text-gray-300 transition-all duration-200" data-filter="others">Others</button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 stagger" id="portfolio-grid">
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="ux">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="MEDIZONE - 1.png" alt="MediZone Hospital Kiosk" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'MEDIZONE - 1.png', 'MEDIZONE - 2.png', 'MEDIZONE - 3.png', 'MEDIZONE - 4.png', 'MEDIZONE - 5.png', 'MEDIZONE - 6.png', 'MEDIZONE - 7.png', 'MEDIZONE - 8.png', 'MEDIZONE - 9.png'
+          ], 'MediZone Hospital Kiosk')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">MediZone <span class="block text-xs font-normal text-gray-500 mt-0.5">Hospital Kiosk Web Interface</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium whitespace-nowrap flex-shrink-0">UI/UX</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Team-based school project designing a web-based hospital self-service kiosk.</p>
+          <div class="flex flex-wrap gap-1 mb-4">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Figma</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+          <a href="https://www.figma.com/proto/qHd6BKite0pmqQmJSvzAKw/Medizone?node-id=9-724&starting-point-node-id=9%3A724" target="_blank" rel="noopener noreferrer" class="w-full text-center text-xs font-semibold px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center gap-1.5 mt-auto">
+            <i class="fas fa-external-link-alt text-[10px]"></i> View Prototype
+          </a>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="ux">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="FurEver Care - 1.png" alt="FurEver Care" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'FurEver Care - 1.png', 'FurEver Care - 2.png', 'FurEver Care - 3.png', 'FurEver Care - 4.png', 'FurEver Care - 5.png', 'FurEver Care - 6.png', 'FurEver Care - 7.png', 'FurEver Care - 8.png'
+          ], 'FurEver Care')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">FurEver Care <span class="block text-xs font-normal text-gray-500 mt-0.5">Pet Health & Community</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium whitespace-nowrap flex-shrink-0">UI/UX</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Team-based school project designing a web platform for tracking pet health and breeding records.</p>
+          <div class="flex flex-wrap gap-1 mb-4">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Figma</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+          <a href="https://www.figma.com/proto/8frnL8VEIblY7EGPkcOZNq/FurEver-Care?node-id=113-519&starting-point-node-id=113%3A519" target="_blank" rel="noopener noreferrer" class="w-full text-center text-xs font-semibold px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center gap-1.5 mt-auto">
+            <i class="fas fa-external-link-alt text-[10px]"></i> View Prototype
+          </a>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="ux">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="Mood Menu - 1.png" alt="Mood Menu" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'Mood Menu - 1.png', 'Mood Menu - 2.png', 'Mood Menu - 3.png', 'Mood Menu - 4.png', 'Mood Menu - 5.png', 'Mood Menu - 6.png', 'Mood Menu - 7.png', 'Mood Menu - 8.png', 'Mood Menu - 9.png', 'Mood Menu - 10.png'
+          ], 'Mood Menu')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Mood Menu <span class="block text-xs font-normal text-gray-500 mt-0.5">Meal Recommendations</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium whitespace-nowrap flex-shrink-0">UI/UX</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Team-based school project designing a tailored web app for curating meal recommendations.</p>
+          <div class="flex flex-wrap gap-1 mb-4">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">UI/UX Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+          <a href="https://www.canva.com/design/DAGo0nSvLAs/_bNTWZDpJ76-Z_cDdcTyQg/edit" target="_blank" rel="noopener noreferrer" class="w-full text-center text-xs font-semibold px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center gap-1.5 mt-auto">
+            <i class="fas fa-external-link-alt text-[10px]"></i> View Project
+          </a>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="ux">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="AgriCart - 1.png" alt="AgriCart" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'AgriCart - 1.png', 'AgriCart - 2.png', 'AgriCart - 3.png', 'AgriCart - 4.png', 'AgriCart - 5.png', 'AgriCart - 6.png'
+          ], 'AgriCart')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">AgriCart <span class="block text-xs font-normal text-gray-500 mt-0.5">E-Commerce Platform</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium whitespace-nowrap flex-shrink-0">UI/UX</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Team-based school project designing a direct-to-consumer e-commerce platform.</p>
+          <div class="flex flex-wrap gap-1 mb-4">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">UI/UX Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+          <a href="https://www.canva.com/design/DAGgSUUCnLI" target="_blank" rel="noopener noreferrer" class="w-full text-center text-xs font-semibold px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center gap-1.5 mt-auto">
+            <i class="fas fa-external-link-alt text-[10px]"></i> View Project
+          </a>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="ux">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="AV Guides - 1.png" alt="AV Guides" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'AV Guides - 1.png', 'AV Guides - 2.png', 'AV Guides - 3.png', 'AV Guides - 4.png', 'AV Guides - 5.png', 'AV Guides - 6.png', 'AV Guides - 7.png', 'AV Guides - 8.png', 'AV Guides - 9.png', 'AV Guides - 10.png', 'AV Guides - 11.png'
+          ], 'AV Guides')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">AV Guides <span class="block text-xs font-normal text-gray-500 mt-0.5">Travel Planning Platform</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium whitespace-nowrap flex-shrink-0">UI/UX</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Team-based school project designing a travel planning platform for affordable hotel and flight searches.</p>
+          <div class="flex flex-wrap gap-1 mb-4">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">UI/UX Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+          <a href="https://www.canva.com/design/DAGhHlAIK_c/n8kDzQWDtTXhdhvduZjyHQ/edit" target="_blank" rel="noopener noreferrer" class="w-full text-center text-xs font-semibold px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center gap-1.5 mt-auto">
+            <i class="fas fa-external-link-alt text-[10px]"></i> View Project
+          </a>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="logo">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="LOGO - 1.jpg" alt="School Department - Logo" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'LOGO - 1.jpg', 'LOGO - 2.jpeg', 'LOGO - 3.png', 'LOGO - 4.jpg'
+          ], 'School Department - Logo')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">School Department Logo <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned (Selected)</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-medium whitespace-nowrap flex-shrink-0">Logo</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Selected commissioned logo design created for a school department, focusing on visual storytelling and organizational identity.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Illustrator</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Branding</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="logo">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="LOGO - 5.png" alt="Small Business - Logo" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+             'LOGO - 5.png', 'LOGO - 6.png', 'LOGO - 7.png', 'LOGO - 8.png'
+          ], 'Small Business - Logo')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Small Business Logo <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned (Selected)</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-medium whitespace-nowrap flex-shrink-0">Logo</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Selected commissioned brand identity and logo design crafted for a small business, emphasizing scalability and brand recognition.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Illustrator</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Branding</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="logo">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="JESTER LOGO -1.png" alt="School Project - Logo" class="w-full h-full object-cover design-thumb" 
+          onclick="openGallery([
+            'JESTER LOGO -1.png', 'JESTER LOGO -2.png', 'JESTER LOGO -3.png', 'JESTER LOGO -4.png'
+          ], 'School Project - Logo')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">School Project Logo <span class="block text-xs font-normal text-gray-500 mt-0.5">School Project (Selected)</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-medium whitespace-nowrap flex-shrink-0">Logo</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Selected logo design created for an academic project, demonstrating applied design principles and creative concept development.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Design Theory</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="JESTER BILLBOARD - 1.png" alt="The Jester Juice Co. Billboard" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['JESTER BILLBOARD - 1.png', 'JESTER BILLBOARD - 2.png'], 'The Jester Juice Co. - Billboard')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">The Jester Juice Co. Billboard <span class="block text-xs font-normal text-gray-500 mt-0.5">School Project</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Large-scale outdoor advertisement design applying strong visual hierarchy and clear brand messaging for high visibility.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Print Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="JESTER BROCHURE - 1.png" alt="The Jester Juice Co. Brochure" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['JESTER BROCHURE - 1.png', 'JESTER BROCHURE - 2.png', 'JESTER BROCHURE - 3.png'], 'The Jester Juice Co. - Brochure')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">The Jester Juice Co. Brochure <span class="block text-xs font-normal text-gray-500 mt-0.5">School Project</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Tri-fold brochure layout focusing on clean typography, cohesive brand colors, and structured information delivery.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Layout</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="JESTER CALLING CARD -4.png" alt="The Jester Juice Co. Calling Card" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['JESTER CALLING CARD -1.png', 'JESTER CALLING CARD -2.png', 'JESTER CALLING CARD -3.png', 'JESTER CALLING CARD -4.png'], 'The Jester Juice Co. - Calling Card')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">The Jester Juice Co. Calling Card <span class="block text-xs font-normal text-gray-500 mt-0.5">School Project</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Professional business card design ensuring readability, brand alignment, and a minimalist aesthetic.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Typography</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="JESTER POSTER -7.png" alt="The Jester Juice Co. Poster" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery([
+            'JESTER POSTER -1.png', 'JESTER POSTER -2.png', 'JESTER POSTER -3.png', 'JESTER POSTER -4.png', 'JESTER POSTER -5.png',
+            'JESTER POSTER -6.png', 'JESTER POSTER -7.png', 'JESTER POSTER -8.png', 'JESTER POSTER -9.png', 'JESTER POSTER -10.png'
+          ], 'The Jester Juice Co. - Advertisement Poster')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">The Jester Juice Co. Poster <span class="block text-xs font-normal text-gray-500 mt-0.5">School Project</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Comprehensive series of advertisement posters crafted to promote products and drive audience engagement.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Marketing Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="JESTER LABEL-1.png" alt="The Jester Juice Co. Label" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['JESTER LABEL-1.png'], 'The Jester Juice Co. - Label')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-search-plus"></i> View Image</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">The Jester Juice Co. Label <span class="block text-xs font-normal text-gray-500 mt-0.5">School Project</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Product label design optimizing small-space typography and adhering to packaging standards.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Packaging</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="BIRTHDAY INVITATION  - 1.png" alt="Commissioned Invitation" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery([
+            'BIRTHDAY INVITATION  - 1.png', 'BIRTHDAY INVITATION  - 2.png', 'BIRTHDAY INVITATION  - 3.png', 'BIRTHDAY INVITATION  - 4.png', 'BIRTHDAY INVITATION  - 5.png', 'BIRTHDAY INVITATION  - 6.png'
+          ], 'Commissioned Invitation')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Commissioned Invitation <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned (Selected)</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Elegant event invitation designs tailored to specific client themes and print requirements.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Canva</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Event Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="GAB HOME ID - 1.png" alt="GAB Home ID Design" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['GAB HOME ID - 1.png', 'GAB HOME ID - 2.png'], 'GAB Home ID - Design')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">GAB Home ID Design <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Professional identification card design ensuring strict adherence to branding and data clarity.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Corporate Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="SCOTTSDALE POSTER - 1.png" alt="Scottsdale City FC Poster" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['SCOTTSDALE POSTER - 1.png', 'SCOTTSDALE POSTER - 2.jpg', 'SCOTTSDALE POSTER - 3.png', 'SCOTTSDALE POSTER - 4.png'], 'Scottsdale City FC - Poster')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Scottsdale City FC Poster <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned (Selected)</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Dynamic sports promotion poster highlighting team branding and energetic visual elements.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Sports Design</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+ <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="graphic">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+    <img src="LAPIDA - 1.png" alt="Selected Commissioned Lapida (Tombstone) Designs" class="w-full h-full object-cover design-thumb"
+    onclick="openGallery(['LAPIDA - 1.png', 'LAPIDA - 2.jpg', 'LAPIDA - 3.png', 'LAPIDA - 4.png', 'LAPIDA - 5.jpg', 'LAPIDA - 6.jpg', 'LAPIDA - 7.jpg', 'LAPIDA - 8.jpg', 'LAPIDA - 9.jpg', 'LAPIDA - 10.jpg'], 'Selected Lapida (Tombstone) Works')">
+    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+      <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+    </div>
+  </div>
+  <div class="p-4 flex flex-col flex-1">
+    <div class="flex items-start justify-between gap-2 mb-1.5">
+      <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Lapida Sample Works <span class="block text-xs font-normal text-gray-500 mt-0.5">Selected Commissioned</span></h2>
+<span class="text-[10px] px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 font-medium whitespace-nowrap flex-shrink-0">Graphic</span>    </div>
+    <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Commissioned memorial marker designs, utilizing detailed photo manipulation and professional typography to create highly respectful and lasting visual tributes.</p>
+    <div class="flex flex-wrap gap-1">
+      <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Memorial Design</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Photo Manipulation</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Typography</span>
+    </div>
+  </div>
+</article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+  <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+    <img src="pangabud-board-1.jfif" alt="PANGABUD Architectural Presentation Layout" class="w-full h-full object-cover design-thumb"
+    onclick="openGallery(['pangabud-board-1.jfif', 'pangabud-board-2.jfif', 'pangabud-board-3.jfif', 'pangabud-board-4.jfif'], 'PANGABUD Presentation Board Layout')">
+    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+      <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+    </div>
+  </div>
+  <div class="p-4 flex flex-col flex-1">
+    <div class="flex items-start justify-between gap-2 mb-1.5">
+      <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">PANGABUD Presentation Boards <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned Layout</span></h2>
+      <span class="text-[10px] px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-medium whitespace-nowrap flex-shrink-0">Layout Design</span>
+    </div>
+    <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Commissioned layout and information design for comprehensive architectural presentation boards, detailing the sustainable "Pangabud" park revitalization project.</p>
+    <div class="flex flex-wrap gap-1">
+      <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Information Design</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Presentation Layout</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Sustainable Architecture</span>
+    </div>
+  </div>
+</article>
+
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="SCOTTSDALE - PINK - 1.png" alt="Scottsdale City FC Pink Uniform" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['SCOTTSDALE - PINK - 1.png', 'SCOTTSDALE - PINK - 2.png', 'SCOTTSDALE - PINK - 3.png', 'SCOTTSDALE - PINK - 4.png'], 'Scottsdale City FC - Pink Uniform')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Scottsdale City FC Pink Uniform <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-medium whitespace-nowrap flex-shrink-0">Others</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Apparel design for sports team uniforms emphasizing fabric placement and team colors.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Apparel</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Mockup</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="SCOTTSDALE - PURPLE - 1.png" alt="Scottsdale City FC Purple Uniform" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery([
+            'SCOTTSDALE - PURPLE - 1.png', 'SCOTTSDALE - PURPLE - 2.png', 'SCOTTSDALE - PURPLE - 3.png', 'SCOTTSDALE - PURPLE - 4.png', 'SCOTTSDALE - PURPLE - 5.png', 'SCOTTSDALE - PURPLE - 6.png', 'SCOTTSDALE - PURPLE - 7.png'
+          ], 'Scottsdale City FC Purple Uniform')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Scottsdale City FC Purple Uniform <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-medium whitespace-nowrap flex-shrink-0">Others</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Comprehensive alternate sports uniform design focusing on intricate pattern details.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Apparel</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Mockup</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="SCOTTSDALE - SHIRT- 1.jpeg" alt="Scottsdale City FC White Shirt Uniform" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery([
+            'SCOTTSDALE - SHIRT- 1.jpeg', 'SCOTTSDALE - SHIRT- 2.jpeg', 'SCOTTSDALE - SHIRT- 3.jpeg', 'SCOTTSDALE - SHIRT- 4.jpeg', 'SCOTTSDALE - SHIRT- 5.jpeg', 'SCOTTSDALE - SHIRT- 6.jpeg'
+          ], 'Scottsdale City FC - White Shirt Uniform')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Scottsdale City FC White Shirt <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-medium whitespace-nowrap flex-shrink-0">Others</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Clean and modern aesthetic for team casual or away uniform apparel.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Apparel</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Mockup</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="SMNHS SHIRT - 1.jpeg" alt="SMNHS Utility Uniform" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['SMNHS SHIRT - 1.jpeg', 'SMNHS SHIRT - 2.jpeg'], 'SMNHS - Utility Uniform')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">SMNHS Utility Uniform <span class="block text-xs font-normal text-gray-500 mt-0.5">Commissioned</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-medium whitespace-nowrap flex-shrink-0">Others</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Custom utility uniform design tailored for school personnel functionality and identification.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Apparel</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Mockup</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="MERAKI SHIRT - 1.png" alt="Meraki Shirt" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['MERAKI SHIRT - 1.png', 'MERAKI SHIRT - 2.png', 'MERAKI SHIRT - 3.png', 'MERAKI SHIRT - 4.png'], 'Meraki - Polo Shirt')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Meraki Shirt <span class="block text-xs font-normal text-gray-500 mt-0.5">Volunteered Work</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-medium whitespace-nowrap flex-shrink-0">Others</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Typography-driven shirt graphic created voluntarily for a specific organizational theme.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Apparel</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Typography</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-item bg-white dark:bg-[#111111] rounded-lg border border-gray-200 dark:border-[#2a2a2a] overflow-hidden hover-lift fade-in flex flex-col" data-category="others">
+        <div class="aspect-video bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative group">
+          <img src="HOLY WEEK SHIRT - 1.png" alt="Holy Week Shirt" class="w-full h-full object-cover design-thumb"
+          onclick="openGallery(['HOLY WEEK SHIRT - 1.png', 'HOLY WEEK SHIRT - 2.png', 'HOLY WEEK SHIRT - 3.png', 'HOLY WEEK SHIRT - 4.png'], 'Holy Week - Shirt')">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 pointer-events-none transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span class="text-white bg-black/60 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white leading-snug">Holy Week Shirt <span class="block text-xs font-normal text-gray-500 mt-0.5">Volunteered Work</span></h2>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-medium whitespace-nowrap flex-shrink-0">Others</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 flex-1">Thematic apparel design drafted voluntarily for local community events.</p>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Apparel</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Illustration</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-black text-gray-600 dark:text-gray-400">Adobe Photoshop</span>
+          </div>
+        </div>
+      </article>
+
+
+      
+    </div>
+
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-[#2a2a2a] bg-white dark:bg-[#111111] mt-10 sm:mt-12">
+    <div class="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+      <p class="mb-3">© 2026 Jan Raven D. Zapata. All Rights Reserved.</p>
+      <p class="text-gray-500 dark:text-gray-500">Sto. Tomas, Pampanga, Philippines</p>
+    </div>
+  </footer>
+
+</div>
+
+<div id="lightbox" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times text-sm"></i></button>
+  <button id="lightbox-prev" onclick="prevImage(event)" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-white text-2xl sm:text-4xl p-2 sm:p-4 hover:text-gray-300 hidden transition"><i class="fas fa-chevron-left"></i></button>
+  <img id="lightbox-img" src="" alt=""/>
+  <button id="lightbox-next" onclick="nextImage(event)" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-white text-2xl sm:text-4xl p-2 sm:p-4 hover:text-gray-300 hidden transition"><i class="fas fa-chevron-right"></i></button>
+  <div id="lightbox-counter" class="absolute top-4 left-4 text-white text-xs sm:text-sm font-medium bg-black/60 px-3 py-1.5 rounded-lg hidden"></div>
+  <div id="lightbox-caption"></div>
+</div>
+
+<script>
+  // Image Gallery Logic
+  let currentGallery = [];
+  let currentIndex = 0;
+
+  function openGallery(images, caption) {
+    if (!images || images.length === 0) return;
+    
+    currentGallery = images;
+    currentIndex = 0;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+    const counter = document.getElementById('lightbox-counter');
+
+    if (images.length > 1) {
+      prevBtn.classList.remove('hidden');
+      nextBtn.classList.remove('hidden');
+      counter.classList.remove('hidden');
+    } else {
+      prevBtn.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+      counter.classList.add('hidden');
+    }
+
+    updateLightboxImage();
+    
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function updateLightboxImage() {
+    document.getElementById('lightbox-img').src = currentGallery[currentIndex];
+    document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + " / " + currentGallery.length;
+  }
+
+  function prevImage(e) {
+    if (e) e.stopPropagation();
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentGallery.length - 1;
+    updateLightboxImage();
+  }
+
+  function nextImage(e) {
+    if (e) e.stopPropagation();
+    currentIndex = (currentIndex < currentGallery.length - 1) ? currentIndex + 1 : 0;
+    updateLightboxImage();
+  }
+
+  function closeLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.currentTarget.id === 'lightbox-close') {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.classList.contains('open')) {
+      if (e.key === 'Escape') closeLightbox({ target: lightbox });
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    }
+  });
+
+  // Category filter
+  function filterItems(category) {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === category);
+    });
+
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      const cat = item.dataset.category;
+      if (category === 'all' || cat === category || cat === 'all-placeholder') {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
